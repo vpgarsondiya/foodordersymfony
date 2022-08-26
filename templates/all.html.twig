@@ -1,0 +1,57 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+
+    <br><br>
+
+    <div class="container-fluid">
+
+        {% for label, messages in app.flashes %}
+
+            {% for message in messages %}
+
+                <div class="alert alert-{{ label }} col-md-6 offset-md-3 col-xs-12" role="alert">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        {% endfor %}
+
+        <div class="alert alert-warning col-md-6 offset-md-3 col-xs-12" role="alert">
+            Completed tasks are marked with green colour.
+        </div>
+
+        <div class="col-md-6 offset-md-3 col-xs-12">
+            <ul class="list-group">
+                {% for task in tasks %}
+
+                    <li {% if task.status %} class="list-group-item list-group-item-success" {% else %} class="list-group-item" {% endif %}>
+                        {{ task.id }}  {{ task.name }} {{ task.price }} {{ task.stock }} {{ task.description }}
+                        <a href="{{ path('delete-task', {id:task.id}) }}" class="btn btn-danger float-end m-1">
+                            Delete
+                        </a>
+                        <a href="{{ path('update-status', {id:task.id}) }}" class="btn btn-primary float-end m-1">
+                            Switch status
+                        </a>
+                    </li>
+
+                {% endfor %}
+            </ul>
+        </div>
+
+        <br>
+
+        <div class="col-md-6 offset-md-3 col-xs-12">
+            <nav aria-label="Pagination">
+                <ul class="pagination">
+
+                    {{ knp_pagination_render(tasks) }}
+
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+
+    <br><br>
+
+    <div class="container-fluid">
+        <div class="col-md-6 offset-md-3">
+            <form action="{{ path('create-task') }}" method="POST">
+                <div class="row">
+                    <div class="col-12">
+                        <input type="text" class="form-control" id="task" name="task" placeholder="Food name" aria-label="Task name"><br>
+                        <input type="text" class="form-control" id="price" name="price" placeholder="Food Price" aria-label="Food Price"><br>
+                        <input type="text" class="form-control" id="stock" name="stock" placeholder="Food Stock" aria-label="Food stock"><br>
+                        <input type="text" class="form-control" id="description" name="description" placeholder="Food Description" aria-label="Food Description">
+                    </div>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary" style="min-width:140px;">Add Food</button>
+            </form>
+        </div>
+
+        <br>
+
+        <div class="col-md-6 offset-md-3">
+            <a href="{{ path('all') }}" class="btn btn-warning mb-1" style="min-width:140px;">
+                See All Food
+            </a>
+        </div>
+    </div>
+
+{% endblock %}

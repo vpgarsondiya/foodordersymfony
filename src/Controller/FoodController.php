@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Food;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,10 +17,6 @@ class FoodController extends AbstractController
      */
     public function index(): Response
     {
-        // return $this->json([
-        //     'message' => 'Welcome to your new controller!',
-        //     'path' => 'src/Controller/FoodController.php',
-        // ]);
 
         return $this->render('index.html.twig');
     }
@@ -86,6 +83,32 @@ class FoodController extends AbstractController
      /**
      * @Route("/updateStatus/{id}", name="update-status")
      */
+    
+    // public function update(ManagerRegistry $doctrine, int $id, Request $request): Response
+    // {
+    //     $entityManager = $doctrine->getManager();
+    //     $task = $entityManager->getRepository(Food::class)->find($id);
+
+    //     if (!$task) {
+    //         throw $this->createNotFoundException(
+    //             'No product found for id '.$id
+    //         );
+    //     }
+
+
+
+    //     $task->setName($name);
+    //     $entityManager->flush($task);
+    //     $this->addFlash('info', 'You have updated a task!');
+
+    //     return $this->redirectToRoute('create', [
+    //         'id' => $task->getId()
+    //     ]);
+    // }
+
+
+
+
     public function updateTaskStatus($id) {
 
         $objectManager = $this->getDoctrine()->getManager();
@@ -93,14 +116,15 @@ class FoodController extends AbstractController
         $task = $objectManager->getRepository(Food::class)->find($id);
 
         $task->setStatus(!$task->isStatus());
-
+        
         $objectManager->flush();
 
-        $this->addFlash('info', 'You have updated a task!');
+    
 
         return $this->redirectToRoute('all');
 
     }
+
 
     /**
      * @Route("/deleteTask/{id}", name="delete-task")
